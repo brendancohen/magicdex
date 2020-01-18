@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -6,7 +8,6 @@ const users = require("./routes/api/users");
 const app = express();
 const path = require('path');
 
-require('dotenv').config();
 
 // Bodyparser middleware
 app.use(
