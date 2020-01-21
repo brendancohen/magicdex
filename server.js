@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const users = require("./routes/api/users");
 const cards = require("./routes/api/cards");
+const containers = require("./routes/api/containers")
 const app = express();
 const path = require('path');
 
@@ -34,6 +35,7 @@ require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
 app.use("/api/cards", cards);
+app.use("/api/containers", containers);
 
 //Serve static assets if in prod
 if(process.env.NODE_ENV === 'production'){

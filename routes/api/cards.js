@@ -36,7 +36,15 @@ Card.findOne({ card_uuid: req.body.uuid }).then(card => {
 router.route('/search/:id').get(function(req, res) {
     let id = req.params.id;
     Card.find({uuid: id}, function(err, card) {
-      res.status(200);
+        res.status(200);
+        res.json(card);
+    });
+});
+
+router.route('/getAll/').get(function(req, res) {
+    let {email} = req.query;
+    Card.find({email: email}, function(err, card) {
+        res.status(200);
         res.json(card);
     });
 });
