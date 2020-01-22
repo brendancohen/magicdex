@@ -12,13 +12,14 @@ class Dashboard extends Component {
     console.log("test");
     axios.get('/api/cards/getAll', {
       params: {
-        email: e
+        id: e
       }
     })
     .then(res =>  {
-      console.log(res);
+      var cards = JSON.stringify(res);
+      console.log(cards);
     }).catch(error => {
-      console.err(error);
+      console.error(error);
     });
   }
 render() {
@@ -41,7 +42,7 @@ return (
                 letterSpacing: "1.5px",
                 marginTop: "1rem"
               }}
-              onClick={ ()=> this.onViewClick(user.email)}
+              onClick={ () => this.onViewClick(user.id)}
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
               Dashboard

@@ -7,18 +7,13 @@ const Card = require("../../models/Card");
 // @desc Register user
 // @access Public
 router.post("/add", (req, res) => {
-  // Form validation
-// const { errors, isValid } = validateRegisterInput(req.body);
-// Check validation
-//  if (!isValid) {
-//    return res.status(400).json(errors);
-//  }
+
 Card.findOne({ card_uuid: req.body.uuid }).then(card => {
     if (card) {
       return res.status(400).json({ card_uuid: "Card already exists" });
     } else {
       const newCard = new Card({
-        email: req.body.email,
+        owner: req.body.owner,
         uuid: req.body.uuid,
         quantity: req.body.quantity,
         container: req.body.container
@@ -41,9 +36,9 @@ router.route('/search/:id').get(function(req, res) {
     });
 });
 
-router.route('/getAll/').get(function(req, res) {
-    let {email} = req.query;
-    Card.find({email: email}, function(err, card) {
+router.route('/getAll').get(function(req, res) {
+    let id = req.query.id;
+    Card.find({owner: id}, function(err, card) {
         res.status(200);
         res.json(card);
     });

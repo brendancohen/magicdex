@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Create Schema
 var CardSchema = new Schema({
-  email: {
+  owner: {
     type: String,
     required: true
   },
