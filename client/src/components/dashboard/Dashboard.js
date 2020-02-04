@@ -3,29 +3,66 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import axios from "axios";
+import "react-tabulator/lib/styles.css";
+import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css";
+
+import {ReactTabulator} from "react-tabulator";
+
+
 class Dashboard extends Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        cards: []
+      };
+    }
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   }
-  onViewClick= e => {
-    console.log("test");
-    axios.get('/api/cards/getAll', {
+
+  componentDidMount() {
+    axios
+    .get('/api/cards/getAll', {
       params: {
-        id: e
+        id: this.props.auth.user.id
       }
     })
     .then(res =>  {
-      var cards = JSON.stringify(res);
-      console.log(cards);
-    }).catch(error => {
+      this.setState({cards: JSON.stringify(res.data)});
+    })
+    .catch(error => {
       console.error(error);
     });
   }
+
 render() {
     const { user } = this.props.auth;
-    console.log(user);
-return (
+    const { cards } = this.state;
+
+    const columns = [
+      { title: 'ID', field: '_id', width: 150 },
+      { title: 'Owner', field: 'owner', align: 'left' },
+      { title: 'UUID', field: 'uuid' },
+      { title: 'Quantity', field: 'quantity' },
+      { title: 'Container', field: 'container', align: 'center'},
+    ];
+
+    const options = {
+      layoutColumnsOnNewData: true,
+      layout: "fitColumns", //fit columns to width of table (optional)
+    };
+
+    console.log(cards);
+    return (
+      <div>
+      <ReactTabulator
+        columns={columns}
+        data={cards}
+        options={options}
+        />
+
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
@@ -42,13 +79,12 @@ return (
                 letterSpacing: "1.5px",
                 marginTop: "1rem"
               }}
-              onClick={ () => this.onViewClick(user.id)}
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
               Dashboard
             </button>
             <div></div>
-            <button
+          <button
               style={{
                 width: "150px",
                 borderRadius: "3px",
@@ -63,6 +99,7 @@ return (
           </div>
         </div>
       </div>
+        </div>
     );
   }
 }
