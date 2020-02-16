@@ -62,44 +62,79 @@ render() {
         data={cards}
         options={options}
         />
-
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
-        <div className="row">
-          <div className="col s12 center-align">
-            <h4>
-              <b>Hey there </b> {user.name.split(" ")[0]} <b>!</b>
-              <p className="flow-text grey-text text-darken-1">
-                You are logged into MagicDex <span role="img" aria-label="poppers">🎉</span>
-              </p>
-            </h4>
-            <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Dashboard
-            </button>
-            <div></div>
-          <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable red accent-3"
-            >
-              Logout
-            </button>
+    <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" class="validate" />
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate" />
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate" />
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" />
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          This is an inline input field:
+          <div class="input-field inline">
+            <input id="email_inline" type="email" class="validate" />
+            <label for="email_inline">Email</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
           </div>
         </div>
       </div>
-        </div>
+    </form>
+  </div>
+  <div style={{ height: "75vh" }} className="container valign-wrapper">
+    <div className="row">
+      <div className="col s12 center-align">
+        <h4>
+          <b>Hey there </b> {user.name.split(" ")[0]} <b>!</b>
+          <p className="flow-text grey-text text-darken-1">
+            You are logged into MagicDex <span role="img" aria-label="poppers">🎉</span>
+          </p>
+        </h4>
+        <button
+          style={{
+            width: "150px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px",
+            marginTop: "1rem"
+          }}
+          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+        >
+          Dashboard
+        </button>
+        <div></div>
+      <button
+          style={{
+            width: "150px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px",
+            marginTop: "1rem"
+          }}
+          onClick={this.onLogoutClick}
+          className="btn btn-large waves-effect waves-light hoverable red accent-3"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
     );
   }
 }
