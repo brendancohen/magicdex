@@ -14,13 +14,38 @@ class Dashboard extends Component {
       super(props);
 
       this.state = {
-        cards: []
+        cards: [],
+        name: "",
+        quantity: ""
       };
     }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   }
+
+  onChange = e => {
+      this.setState({ [e.target.id]: e.target.value });
+    };
+
+  onSubmit = e => {
+      e.preventDefault();
+
+  const newEntry = {
+        owner: this.props.auth.user.id,
+        name: this.state.name,
+        quantity: this.state.quantity
+      };
+      console.log("test");
+      axios
+        .post("/api/cards/add", newEntry)
+        .then(console.log(newEntry))
+        .catch(err =>{
+          console.error(err);}
+        );
+      console.log(newEntry);
+    };
 
   componentDidMount() {
     axios
@@ -42,9 +67,7 @@ render() {
     const { cards } = this.state;
 
     const columns = [
-      { title: 'ID', field: '_id', width: 150 },
-      { title: 'Owner', field: 'owner', align: 'left' },
-      { title: 'UUID', field: 'uuid' },
+      { title: 'Card Name', field: 'name' },
       { title: 'Quantity', field: 'quantity' },
       { title: 'Container', field: 'container', align: 'center'},
     ];
@@ -54,7 +77,6 @@ render() {
       layout: "fitColumns", //fit columns to width of table (optional)
     };
 
-    console.log(cards);
     return (
       <div>
       <ReactTabulator
@@ -62,42 +84,39 @@ render() {
         data={cards}
         options={options}
         />
+    <form noValidate onSubmit={this.onSubmit}>
     <div class="row">
-    <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Placeholder" id="first_name" type="text" class="validate" />
-          <label for="first_name">First Name</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate" />
-          <label for="last_name">Last Name</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate" />
-          <label for="password">Password</label>
+          <input
+            onChange ={this.onChange}
+            value={this.state.name}
+            placeholder="Card Name"
+            id="name"
+            type="text"
+          />
         </div>
       </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate" />
-          <label for="email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          This is an inline input field:
-          <div class="input-field inline">
-            <input id="email_inline" type="email" class="validate" />
-            <label for="email_inline">Email</label>
-            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-          </div>
-        </div>
+      <label>Quantity</label>
+      <select
+        value={this.state.quantity}
+        onChange={this.onChange}
+        id="quantity"
+        class="browser-default">
+      <option value="" disabled selected>Choose quantity</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="3">4</option>
+      </select>
+
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+      </button>
       </div>
     </form>
-  </div>
+
+
   <div style={{ height: "75vh" }} className="container valign-wrapper">
     <div className="row">
       <div className="col s12 center-align">

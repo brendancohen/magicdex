@@ -8,13 +8,13 @@ const Card = require("../../models/Card");
 // @access Public
 router.post("/add", (req, res) => {
 
-Card.findOne({ card_uuid: req.body.uuid }).then(card => {
+Card.findOne({ name: req.body.name }).then(card => {
     if (card) {
-      return res.status(400).json({ card_uuid: "Card already exists" });
+      return res.status(400).json({ name: "Card already exists" });
     } else {
       const newCard = new Card({
         owner: req.body.owner,
-        uuid: req.body.uuid,
+        name: req.body.name,
         quantity: req.body.quantity,
         container: req.body.container
       });
@@ -28,9 +28,9 @@ Card.findOne({ card_uuid: req.body.uuid }).then(card => {
 // @route GET api/cards/search
 // @desc Login user and return JWT token
 // @access Public
-router.route('/search/:id').get(function(req, res) {
-    let id = req.params.id;
-    Card.find({uuid: id}, function(err, card) {
+router.route('/search/:name').get(function(req, res) {
+    let name = req.params.name;
+    Card.find({name: name}, function(err, card) {
         res.status(200);
         res.json(card);
     });

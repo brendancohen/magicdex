@@ -6,7 +6,7 @@ var CardSchema = new Schema({
     type: String,
     required: true
   },
-  uuid: {
+  name: {
     type: String,
     required: true
   },
