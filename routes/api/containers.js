@@ -8,12 +8,12 @@ const Container = require("../../models/Container");
 // @access Public
 router.post("/add", (req, res) => {
   // Form validation
-// const { errors, isValid } = validateRegisterInput(req.body);
-// Check validation
-//  if (!isValid) {
-//    return res.status(400).json(errors);
-//  }
-Container.findOne({ name: req.body.name }).then(obj => {
+  // const { errors, isValid } = validateRegisterInput(req.body);
+  // Check validation
+  //  if (!isValid) {
+  //    return res.status(400).json(errors);
+  //  }
+  Container.findOne({ name: req.body.name }).then(obj => {
     if (obj) {
       return res.status(400).json({ name: "Container already exists" });
     } else {
@@ -22,29 +22,29 @@ Container.findOne({ name: req.body.name }).then(obj => {
         name: req.body.name
       });
       newContainer
-        .save()
-        .then(obj => res.json(obj))
-        .catch(err => console.log(err));
+      .save()
+      .then(obj => res.json(obj))
+      .catch(err => console.log(err));
     }
   });
 });
 // @route GET api/containers/search/:id
 // @access Public
 router.route('/search/:id').get(function(req, res) {
-    let id = req.params.id;
-    Container.find({uuid: id}, function(err, obj) {
-      res.status(200);
-      res.json(obj);
-    });
+  let id = req.params.id;
+  Container.find({uuid: id}, function(err, obj) {
+    res.status(200);
+    res.json(obj);
+  });
 });
 // @route DELETE api/containers/delete/:id
 // @access Public
 router.route('/delete/:id').get(function(req, res) {
-    let id = req.params.id;
-    Container.findOneAndDelete({id: id}, function(err, obj) {
-      res.status(200);
-      res.json(obj);
-    });
+  let id = req.params.id;
+  Container.findOneAndDelete({id: id}, function(err, obj) {
+    res.status(200);
+    res.json(obj);
+  });
 });
 
 module.exports = router;

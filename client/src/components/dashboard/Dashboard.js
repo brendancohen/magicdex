@@ -10,15 +10,15 @@ import {ReactTabulator} from "react-tabulator";
 
 
 class Dashboard extends Component {
-    constructor(props) {
-      super(props);
+  constructor(props) {
+    super(props);
 
-      this.state = {
-        cards: [],
-        name: "",
-        quantity: ""
-      };
-    }
+    this.state = {
+      cards: [],
+      name: "",
+      quantity: ""
+    };
+  }
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -26,26 +26,26 @@ class Dashboard extends Component {
   }
 
   onChange = e => {
-      this.setState({ [e.target.id]: e.target.value });
-    };
+    this.setState({ [e.target.id]: e.target.value });
+  };
 
   onSubmit = e => {
-      e.preventDefault();
+    e.preventDefault();
 
-  const newEntry = {
-        owner: this.props.auth.user.id,
-        name: this.state.name,
-        quantity: this.state.quantity
-      };
-      console.log("test");
-      axios
-        .post("/api/cards/add", newEntry)
-        .then(console.log(newEntry))
-        .catch(err =>{
-          console.error(err);}
-        );
-      console.log(newEntry);
+    const newEntry = {
+      owner: this.props.auth.user.id,
+      name: this.state.name,
+      quantity: this.state.quantity
     };
+    console.log("test");
+    axios
+    .post("/api/cards/add", newEntry)
+    .then(console.log(newEntry))
+    .catch(err =>{
+      console.error(err);}
+    );
+    console.log(newEntry);
+  };
 
   componentDidMount() {
     axios
@@ -62,7 +62,7 @@ class Dashboard extends Component {
     });
   }
 
-render() {
+  render() {
     const { user } = this.props.auth;
     const { cards } = this.state;
 
@@ -80,29 +80,29 @@ render() {
     return (
       <div>
       <ReactTabulator
-        columns={columns}
-        data={cards}
-        options={options}
-        />
-    <form noValidate onSubmit={this.onSubmit}>
-    <div class="row">
+      columns={columns}
+      data={cards}
+      options={options}
+      />
+      <form noValidate onSubmit={this.onSubmit}>
       <div class="row">
-        <div class="input-field col s6">
-          <input
-            onChange ={this.onChange}
-            value={this.state.name}
-            placeholder="Card Name"
-            id="name"
-            type="text"
-          />
-        </div>
+      <div class="row">
+      <div class="input-field col s6">
+      <input
+      onChange ={this.onChange}
+      value={this.state.name}
+      placeholder="Card Name"
+      id="name"
+      type="text"
+      />
+      </div>
       </div>
       <label>Quantity</label>
       <select
-        value={this.state.quantity}
-        onChange={this.onChange}
-        id="quantity"
-        class="browser-default">
+      value={this.state.quantity}
+      onChange={this.onChange}
+      id="quantity"
+      class="browser-default">
       <option value="" disabled selected>Choose quantity</option>
       <option value="1">1</option>
       <option value="2">2</option>
@@ -114,46 +114,46 @@ render() {
       <i class="material-icons right">send</i>
       </button>
       </div>
-    </form>
+      </form>
 
 
-  <div style={{ height: "75vh" }} className="container valign-wrapper">
-    <div className="row">
+      <div style={{ height: "75vh" }} className="container valign-wrapper">
+      <div className="row">
       <div className="col s12 center-align">
-        <h4>
-          <b>Hey there </b> {user.name.split(" ")[0]} <b>!</b>
-          <p className="flow-text grey-text text-darken-1">
-            You are logged into MagicDex <span role="img" aria-label="poppers">🎉</span>
-          </p>
-        </h4>
-        <button
-          style={{
-            width: "150px",
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-            marginTop: "1rem"
-          }}
-          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-        >
-          Dashboard
-        </button>
-        <div></div>
+      <h4>
+      <b>Hey there </b> {user.name.split(" ")[0]} <b>!</b>
+      <p className="flow-text grey-text text-darken-1">
+      You are logged into MagicDex <span role="img" aria-label="poppers">🎉</span>
+      </p>
+      </h4>
       <button
-          style={{
-            width: "150px",
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-            marginTop: "1rem"
-          }}
-          onClick={this.onLogoutClick}
-          className="btn btn-large waves-effect waves-light hoverable red accent-3"
-        >
-          Logout
-        </button>
+      style={{
+        width: "150px",
+        borderRadius: "3px",
+        letterSpacing: "1.5px",
+        marginTop: "1rem"
+      }}
+      className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+      >
+      Dashboard
+      </button>
+      <div></div>
+      <button
+      style={{
+        width: "150px",
+        borderRadius: "3px",
+        letterSpacing: "1.5px",
+        marginTop: "1rem"
+      }}
+      onClick={this.onLogoutClick}
+      className="btn btn-large waves-effect waves-light hoverable red accent-3"
+      >
+      Logout
+      </button>
       </div>
-    </div>
-  </div>
-</div>
+      </div>
+      </div>
+      </div>
     );
   }
 }
